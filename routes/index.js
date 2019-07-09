@@ -1,15 +1,13 @@
-var express = require('express');
-var router = express.Router();
-var path = require('path');
+const express = require('express');
+const router  = express.Router();
+const path    = require('path');
 
-const pathPublic = path.join(process.cwd() + '/public/index.html');
+const pathPublic = path.join(process.cwd() + '/views');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  // res.send('Hello');
-
-  res.sendFile(pathPublic);
-  // res.render('index', { title: 'Express' });
+  // res.send('eeeeee');
+  res.sendFile(pathPublic + '/index.html');
 });
 
 module.exports = router;

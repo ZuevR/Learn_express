@@ -15,14 +15,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(bodyParser.json());
 
-// app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.get('/products',
     (req, res) => res.sendFile(__dirname + '/views/products.html')
-)
-
-app.use((req, res) => { res.status(500); console.log('SOME'); res.send('NOTHING')})
+);
 
 module.exports = app;
