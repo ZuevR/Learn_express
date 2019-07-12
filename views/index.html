@@ -1,45 +1,93 @@
 <html>
-  <head>
-    <title>Express</title>
-    <link rel="stylesheet" href="/stylesheets/style.css" />
-  </head>
+<head>
+  <title>Blog | Homepage</title>
+  <link rel="stylesheet" href="/stylesheets/style.css"/>
+</head>
 
-  <body>
-    <header class="header">
-      <div class="container">
-        <div class="header-inner">
-          <div class="logo-wrapper">
-            <a href="/">
-              <img class="logo" src="images/logo-blog.png" alt="logo" />
-            </a>
+<body>
+<header class="header">
+  <div class="container">
+    <div class="header-inner">
+      <div class="logo-wrapper">
+        <a href="/">
+          <img class="logo" src="images/logo-blog.png" alt="logo"/>
+        </a>
+      </div>
+      <nav class="auth-menu">
+        <ul>
+          <a href="/sign-up">
+            <li class="auth-menu-item">Registration</li>
+          </a>
+          <a href="/sign-in">
+            <li class="auth-menu-item">Login</li>
+          </a>
+          <a href="/sign-in.html" class="hidden">
+            <li class="auth-menu-item">Logout</li>
+          </a>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main class="main-content">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <div id="left-section-wrap">
+          <div class="user-info">
+            <span>Guest</span>
           </div>
-          <nav class="auth-menu">
+          <aside class="nav-menu">
             <ul>
-              <a href="/sign-up">
-                <li class="auth-menu-item">Registration</li>
-              </a>
-              <a href="/sign-in">
-                <li class="auth-menu-item">Login</li>
-              </a>
-              <a href="/sign-in.html" class="hidden">
-                <li class="auth-menu-item">Logout</li>
-              </a>
+              <li class="nav-menu-item">Users</li>
+              <li class="nav-menu-item active">Posts</li>
+              <li class="nav-menu-item">Friends Posts</li>
+              <li class="nav-menu-item">Add New Post</li>
             </ul>
-          </nav>
+          </aside>
         </div>
       </div>
-    </header>
 
-    <main class="main-content">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-3">
-            MENU
+      <div class="col-md-9" id="posts">
+        <div class="post">
+          <h2 class="post-title">Title</h2>
+          <p class="post-description">Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore magna aliqua.</p>
+          <div class="post-info">
+            <span class="author">Author Name</span>
+            <span class="date">27-07-2018</span>
           </div>
         </div>
       </div>
-    </main>
+    </div>
+  </div>
+</main>
 
-    <footer></footer>
-  </body>
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="copyrights">
+        Inspirit ©2019
+      </div>
+    </div>
+  </div>
+</footer>
+<script type="text/javascript">
+  const menuSection = document.getElementById('left-section-wrap');
+  const postSection = document.getElementById('posts');
+  window.onscroll = function () {
+    let menuOffset = menuSection.getBoundingClientRect().top;
+    let postOffset = postSection.getBoundingClientRect().top;
+
+    if (menuOffset < 15) {
+      menuSection.classList.add('fixed-section');
+    }
+    if (postOffset >= 15) {
+      menuSection.classList.remove('fixed-section');
+    }
+  }
+</script>
+</body>
 </html>
