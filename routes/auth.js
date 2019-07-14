@@ -12,4 +12,10 @@ router.get("/sign-up", (req, res) => {
   res.sendFile(pathPublic + "/sign-up.html");
 });
 
+router.post("/sign-up", (req, res) => {
+  const data = req.body;
+  console.log(data);
+  res.send('Hey');
+});
+
 module.exports = router;
