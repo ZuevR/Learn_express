@@ -21,7 +21,7 @@ User.init({
     unique: true,
   },
   password: {
-    type: Sequelize.STRING(32),
+    type: Sequelize.STRING(60),
     allowNull: false,
   },
   createdAt: {
@@ -51,3 +51,5 @@ User.init({
 //     .then(jane => {
 //       console.log(jane.toJSON());
 //     });
+
+module.exports = User;

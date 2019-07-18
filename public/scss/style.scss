@@ -163,6 +163,7 @@ body {
       padding: 25px 25px 15px;
       font-weight: 700;
       color: #747474;
+      border-radius: 5px;
 
       h2 {
         text-align: center;
@@ -211,6 +212,21 @@ body {
 
           &:active {
             color: #222222;
+          }
+        }
+
+        &.errors {
+          margin: 10px 0;
+
+          small {
+            width: 100%;
+            text-align: center;
+            color: red;
+            line-height: 1.4;
+
+            &.success {
+              color: green;
+            }
           }
         }
       }

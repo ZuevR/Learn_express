@@ -22,6 +22,20 @@ app.use("/", indexRouter);
 app.use("/", authRouter);
 app.use("/users", usersRouter);
 
+
+
+
+app.use((err, req, res, next) => {
+
+  console.log(123);
+  // res.status(err.status || 500);
+  // res.json({
+  //   error: {
+  //     message: err.message
+  //   }
+  // });
+});
+
 // TODO: It was just for example, has to be deleted.
 app.get("/products", (req, res) =>
   res.sendFile(__dirname + "/views/products.html")

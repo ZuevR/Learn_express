@@ -15,10 +15,10 @@
       </div>
       <nav class="auth-menu">
         <ul>
-          <a href="/sign-up">
+          <a href="/sign-up" class="hidden">
             <li class="auth-menu-item">Registration</li>
           </a>
-          <a href="/sign-in">
+          <a href="/sign-in" class="hidden">
             <li class="auth-menu-item">Login</li>
           </a>
           <a href="/sign-in.html" class="hidden">
@@ -75,20 +75,6 @@
   </div>
 </footer>
 
-<script type="text/javascript">
-  const menuSection = document.getElementById('left-section-wrap');
-  const postSection = document.getElementById('posts');
-  window.onscroll = function () {
-    let menuOffset = menuSection.getBoundingClientRect().top;
-    let postOffset = postSection.getBoundingClientRect().top;
-
-    if (menuOffset < 15) {
-      menuSection.classList.add('fixed-section');
-    }
-    if (postOffset >= 15) {
-      menuSection.classList.remove('fixed-section');
-    }
-  }
-</script>
+<script src="/javascripts/home.js"></script>
 </body>
 </html>
