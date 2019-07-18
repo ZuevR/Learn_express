@@ -15,13 +15,13 @@
       </div>
       <nav class="auth-menu">
         <ul>
-          <a href="/sign-up" class="hidden">
+          <a href="/sign-up" id="sign-up-link" class="hidden">
             <li class="auth-menu-item">Registration</li>
           </a>
-          <a href="/sign-in" class="hidden">
+          <a href="/sign-in" id="sign-in-link" class="hidden">
             <li class="auth-menu-item">Login</li>
           </a>
-          <a href="/sign-in.html" class="hidden">
+          <a href="/logout" id="logout-link" class="hidden">
             <li class="auth-menu-item">Logout</li>
           </a>
         </ul>
@@ -36,7 +36,7 @@
       <div class="col-md-3">
         <div id="left-section-wrap">
           <div class="user-info">
-            <span>Guest</span>
+            <span id="user-name"></span>
           </div>
           <aside class="nav-menu">
             <ul>
@@ -75,6 +75,8 @@
   </div>
 </footer>
 
+<script src="/javascripts/libs/axios.min.js"></script>
+<script src="/javascripts/functions.js"></script>
 <script src="/javascripts/home.js"></script>
 </body>
 </html>

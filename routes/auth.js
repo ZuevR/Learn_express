@@ -12,6 +12,37 @@ router.get("/sign-in", (req, res, next) => {
   res.sendFile(pathPublic + "/sign-in.html");
 });
 
+router.post("/sign-in", async (req, res, next) => {
+  const formData = req.body;
+
+  try {
+    const rows = await db.query('SELECT * FROM "Users" WHERE email = $1', [formData.email.toLowerCase()]);
+    if (rows.rows.length) {
+      const user = rows.rows[0];
+      const match = await bcrypt.compare(formData.password, user.password);
+      if (match) {
+        const token = jwt.sign({
+            userId: user.id,
+            userName: user.name
+          },
+          'inspirit',
+          {expiresIn: '24h'}
+        );
+        res.status(200).send(response.success({
+          user: user.name,
+          token
+        }));
+      } else {
+        res.status(401).send(response.error('Wrong Password'));
+      }
+    } else {
+      res.status(401).send(response.error('Wrong Email'));
+    }
+  } catch (error) {
+
+  }
+});
+
 router.get("/sign-up", (req, res, next) => {
   res.sendFile(pathPublic + "/sign-up.html");
 });
@@ -47,6 +78,10 @@ router.post("/sign-up", async (req, res, next) => {
   } catch (error) {
     console.log(error);
   }
+});
+
+router.get("/logout", (req, res, next) => {
+  res.sendFile(pathPublic + '/index.html');
 });
 
 module.exports = router;

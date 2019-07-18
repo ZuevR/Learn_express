@@ -1,12 +1,8 @@
 window.onload = () => {
-  const submitButton = document.getElementById('sign-up');
+  const submitButton = document.getElementById('sign-in');
   const errorField = document.getElementById('error');
 
   const showError = message => errorField.textContent = message;
-  const showSuccess = () => {
-    errorField.textContent = 'You have been successfully registered. Redirect to Home after 3 second';
-    errorField.classList.add('success');
-  };
 
   /**
    *  Handling Sign Up action
@@ -16,21 +12,16 @@ window.onload = () => {
 
     const form = document.forms['sign-up-form'];
     const formData = {
-      name: form.elements['name'].value,
       email: form.elements['email'].value,
       password: form.elements['password'].value
     };
 
-    axios.post('/sign-up', formData)
-      .then(res => {
-        showSuccess();
-        return res;
-      })
+    axios.post('/sign-in', formData)
       .then(res => {
         console.log(res);
         const token = res.data.payload.token;
         localStorage.setItem('token', token);
-        setTimeout(redirectToHomePage, 3000);
+        redirectToHomePage();
       })
       .catch(err => {
         const errorText = err.response.data.errorMessage;
