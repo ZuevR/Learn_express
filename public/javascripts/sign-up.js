@@ -27,9 +27,9 @@ window.onload = () => {
         return res;
       })
       .then(res => {
-        console.log(res);
         const token = res.data.payload.token;
         localStorage.setItem('token', token);
+        document.cookie = `token=${token}`;
         setTimeout(redirectToHomePage, 3000);
       })
       .catch(err => {

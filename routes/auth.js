@@ -14,7 +14,6 @@ router.get("/sign-in", (req, res, next) => {
 
 router.post("/sign-in", async (req, res, next) => {
   const formData = req.body;
-
   try {
     const rows = await db.query('SELECT * FROM "Users" WHERE email = $1', [formData.email.toLowerCase()]);
     if (rows.rows.length) {
@@ -38,9 +37,7 @@ router.post("/sign-in", async (req, res, next) => {
     } else {
       res.status(401).send(response.error('Wrong Email'));
     }
-  } catch (error) {
-
-  }
+  } catch (error) {}
 });
 
 router.get("/sign-up", (req, res, next) => {

@@ -17,7 +17,7 @@ router.get('/check-user', (req, res, next) => {
     if (decoded) {
       res.status(200).send(decoded.userName);
     } else {
-      res.status(401).send(response.error('You should login before'));
+      res.status(401).send(response.error('Please login'));
     }
   });
 

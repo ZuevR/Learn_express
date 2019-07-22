@@ -40,26 +40,36 @@
           </div>
           <aside class="nav-menu">
             <ul>
-              <li class="nav-menu-item">Users</li>
-              <li class="nav-menu-item active">Posts</li>
+              <li class="nav-menu-item active">Users</li>
+              <li class="nav-menu-item">Posts</li>
               <li class="nav-menu-item">Friends Posts</li>
               <li class="nav-menu-item">Add New Post</li>
             </ul>
           </aside>
-          <div class="errors-block hidden" id="errors"></div>
         </div>
       </div>
 
-      <div class="col-md-9" id="scroll-content">
-        <div class="post">
-          <h2 class="post-title">Title</h2>
-          <p class="post-description">Lorem ipsum dolor sit amet, consectetur
-            adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua.</p>
-          <div class="post-info">
-            <span class="author">Author Name</span>
-            <span class="date">27-07-2018</span>
-          </div>
+      <div class="col-md-6" id="scroll-content">
+        <div class="user">
+          <span class="user-name">Author Name</span>
+          <span class="follow">
+            <i class="icon-heart-empty"></i>
+          </span>
+        </div>
+        <div class="user">
+          <span class="user-name">Author Name</span>
+          <span class="follow">
+            <i class="icon-heart-empty"></i>
+          </span>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="search-bar" id="search-bar">
+          <label for="search">Input name of User</label>
+          <input id="search" type="search">
+
+          <input type="submit" value="Search">
         </div>
       </div>
     </div>
@@ -78,6 +88,6 @@
 
 <script src="/javascripts/libs/axios.min.js"></script>
 <script src="/javascripts/functions.js"></script>
-<script src="/javascripts/home.js"></script>
+<script src="/javascripts/users.js"></script>
 </body>
 </html>

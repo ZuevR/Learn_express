@@ -17,6 +17,14 @@
   font-weight: 700;
 }
 
+@font-face {
+  font-family: 'Fontello';
+  src:  url("../fonts/fontello.woff") format('woff');
+  font-display: swap;
+  font-style: normal;
+  font-weight: normal;
+}
+
 .hidden {
   display: none;
 }
@@ -97,10 +105,12 @@ body {
       display: flex;
       justify-content: center;
       align-items: center;
+      border: 1px solid #3db7c6;
     }
 
     .nav-menu {
       background-color: #fff;
+      border: 1px solid #3db7c6;
 
       &-item {
         display: flex;
@@ -112,7 +122,11 @@ body {
         border: 1px solid transparent;
         transition: all .2s linear;
         cursor: pointer;
-        
+        border-bottom: 1px solid rgba(61, 183, 198, 0.23);
+        &:last-child {
+          border-bottom: 0;
+        }
+
         &:hover {
           border-color: #aaaaaa;
           font-size: 18px;
@@ -131,6 +145,15 @@ body {
           }
         }
       }
+    }
+
+    .errors-block {
+      background-color: #fff;
+      border: 1px solid rgba(255, 0, 0, 0.20);
+      text-align: center;
+      margin-top: 25px;
+      padding: 10px;
+      color: red;
     }
 
     .post {
@@ -231,6 +254,72 @@ body {
         }
       }
     }
+
+    .user {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+      background-color: #fff;
+      margin-bottom: 15px;
+      border-bottom: 1px solid rgba(61, 183, 198, 0.23);
+
+      .follow {
+        font-family: 'Fontello';
+        color: #3db7c6;
+
+        &:hover {
+          animation: heartbeat 1s cubic-bezier(0.1,0.25,0.1,1) 0s infinite ;
+        }
+
+        .icon-heart-empty {
+          cursor: pointer;
+
+          &:before {
+            content: '\e800';
+          }
+        }
+        .icon-heart{
+          cursor: pointer;
+          &:before { content: '\e801'; }
+        }
+      }
+    }
+
+    .search-bar {
+      background-color: #fff;
+      text-align: center;
+      padding: 20px 0;
+      border: 1px solid #3db7c6;
+
+      input {
+        display: block;
+        margin: 20px auto;
+        width: 70%;
+        padding: 5px 10px;
+        font-size: 1rem;
+        line-height: 1.2;
+        color: #495057;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: .25rem;
+        transition: background-color .1s linear;
+
+        &[type="submit"] {
+          width: 50%;
+          margin-bottom: 0;
+
+          &:hover {
+            color: #222222;
+            background-color: #daf3f6;
+          }
+          &:active {
+            background-color: #3db7c6;
+          }
+        }
+      }
+    }
+
   }
 
   .footer {
@@ -241,5 +330,15 @@ body {
     left: 0;
     right: 0;
     z-index: 1;
+  }
+}
+
+@keyframes heartbeat {
+  0%  {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1.5);
   }
 }

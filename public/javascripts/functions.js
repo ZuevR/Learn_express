@@ -1,15 +1,19 @@
 const fixMenu = () => {
   const menuSection = document.getElementById('left-section-wrap');
-  const postSection = document.getElementById('posts');
+  const scrollSection = document.getElementById('scroll-content');
+  const searchSection = document.getElementById('search-bar');
+
   window.onscroll = () => {
     let menuOffset = menuSection.getBoundingClientRect().top;
-    let postOffset = postSection.getBoundingClientRect().top;
+    let scrollOffset = scrollSection.getBoundingClientRect().top;
 
     if (menuOffset < 15) {
       menuSection.classList.add('fixed-section');
+      searchSection ? searchSection.classList.add('fixed-section') : false;
     }
-    if (postOffset >= 15) {
+    if (scrollOffset >= 15) {
       menuSection.classList.remove('fixed-section');
+      searchSection ? searchSection.classList.remove('fixed-section') : false;
     }
   };
 };
@@ -21,7 +25,7 @@ const checkUser = () => {
     logoutLink = document.getElementById('logout-link');
 
   const token = localStorage.getItem('token');
-  axios.get('/check-user', {
+  axios('/check-user', {
     headers: {token}
   })
     .then(res => {
@@ -36,10 +40,22 @@ const checkUser = () => {
     })
 };
 
-const redirectToHomePage = () => window.location.replace('http://localhost:3000');
+getFollowersInfo = () => {
+  axios('/users/followers', {
+    headers: {
+      'token': localStorage.getItem('token')
+    }
+  })
+    .then(res => console.log(res))
+    .catch();
+};
 
+const redirectToHomePage = () => window.location.replace('http://localhost:3000');
+const redirectToUsersPage = () => window.location.replace('http://localhost:3000/users');
 const logout = event => {
   event.preventDefault();
   localStorage.removeItem('token');
+  document.cookie = "token= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
   redirectToHomePage();
 };
+

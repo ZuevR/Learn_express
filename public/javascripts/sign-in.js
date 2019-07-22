@@ -21,6 +21,7 @@ window.onload = () => {
         console.log(res);
         const token = res.data.payload.token;
         localStorage.setItem('token', token);
+        document.cookie = `token=${token}`;
         redirectToHomePage();
       })
       .catch(err => {
