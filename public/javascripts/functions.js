@@ -40,22 +40,78 @@ const checkUser = () => {
     })
 };
 
-getFollowersInfo = () => {
-  axios('/users/followers', {
+const getFollowersInfo = () => {
+  return axios('/users/followers', {
     headers: {
       'token': localStorage.getItem('token')
     }
   })
-    .then(res => console.log(res))
+    .then(res => res.data)
     .catch();
 };
 
 const redirectToHomePage = () => window.location.replace('http://localhost:3000');
+
 const redirectToUsersPage = () => window.location.replace('http://localhost:3000/users');
+
 const logout = event => {
   event.preventDefault();
   localStorage.removeItem('token');
-  document.cookie = "token= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+  deleteCookie('token');
   redirectToHomePage();
 };
 
+const setCookie = (name, value, expires) => {
+
+  const d = new Date();
+  d.setTime(d.getTime() + expires * 1000 * 60 * 60);
+  expires = d.toUTCString();
+  document.cookie = `${name}=${value}; expires=${expires}`;
+};
+
+function deleteCookie(name) {
+  setCookie(name, "", -1);
+}
+
+const toggleFollow = id => {
+  console.log(id);
+  const token = localStorage.getItem('token');
+  console.log(token);
+  axios({
+    method: 'POST',
+    url: '/users/follow',
+    headers: { token },
+    data: { id }
+  })
+};
+
+const drawUsersList = (target, data) => {
+
+  const fragment = document.createDocumentFragment();
+  data.forEach(elem => {
+    const div = document.createElement('div');
+    div.classList.add('user');
+    div.addEventListener('click', () => {
+      toggleFollow(elem.id);
+    });
+
+    const nameSpan = document.createElement('span');
+    nameSpan.classList.add('user-name');
+    nameSpan.textContent = elem.name;
+
+    const heartSpan = document.createElement('span');
+    heartSpan.classList.add('follow');
+
+    const icon = document.createElement('i');
+    elem.following ?
+      icon.classList.add('icon-heart') :
+      icon.classList.add('icon-heart-empty');
+
+    heartSpan.appendChild(icon);
+    div.appendChild(nameSpan);
+    div.appendChild(heartSpan);
+    fragment.appendChild(div);
+  });
+
+  target.appendChild(fragment);
+};

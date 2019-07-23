@@ -27,14 +27,28 @@ router.get("/followers", async (req, res, next) => {
   const decoded = jwt.decode(req.headers.token);
   const userId = decoded.userId;
   try {
-    const users = await db.query('SELECT "Users".name, "Users".id, "Followers".following FROM "Users" LEFT JOIN "Followers" ON "Users".id = "Followers".following WHERE name LIKE '%o%' and "Users".id != 4 RETURNING *');
-    console.log(users);
-  } catch (error) {
-
+    const queryString = `SELECT "Users".name, "Users".id, "Followers".following FROM "Users" LEFT JOIN "Followers" ON "Users".id = "Followers".following WHERE "Users".id != $1`;
+    const userValues = [userId];
+    const users = await db.query(queryString, userValues);
+    res.status(200).send(users.rows);
+  } catch (e) {
+    console.log(e);
   }
+});
 
+router.post("/follow", async (req, res, next) => {
+  const token = req.headers.token;
 
-  // console.log(userId);
+  jwt.verify(token, 'inspirit', (err, decoded) => {
+    if (decoded) {
+      const userId = decoded.userId;
+      const targetId = req.body.id;
+      console.log(userId);
+      console.log(targetId);
+    } else {
+      res.status(401).send(response.error('Please login'));
+    }
+  });
 });
 
 module.exports = router;

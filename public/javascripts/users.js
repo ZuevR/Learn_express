@@ -3,8 +3,12 @@ window.onload = function () {
   fixMenu();
 
   const logoutLink = document.getElementById('logout-link');
+  const usersListArea = document.getElementById('scroll-content');
   logoutLink.addEventListener('click', logout);
 
-  getFollowersInfo();
+  getFollowersInfo()
+    .then(users => {
+      drawUsersList(usersListArea, users);
+    });
 
 };
