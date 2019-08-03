@@ -74,26 +74,27 @@ function deleteCookie(name) {
 }
 
 const toggleFollow = id => {
-  console.log(id);
   const token = localStorage.getItem('token');
-  console.log(token);
-  axios({
+  return axios({
     method: 'POST',
     url: '/users/follow',
-    headers: { token },
-    data: { id }
+    headers: {token},
+    data: {id}
   })
 };
 
 const drawUsersList = (target, data) => {
+  const userId = data.userId;
+  const usersList = data.payload;
+
+  while (target.firstChild) {
+    target.removeChild(target.firstChild);
+  }
 
   const fragment = document.createDocumentFragment();
-  data.forEach(elem => {
+  usersList.forEach(elem => {
     const div = document.createElement('div');
     div.classList.add('user');
-    div.addEventListener('click', () => {
-      toggleFollow(elem.id);
-    });
 
     const nameSpan = document.createElement('span');
     nameSpan.classList.add('user-name');
@@ -103,7 +104,21 @@ const drawUsersList = (target, data) => {
     heartSpan.classList.add('follow');
 
     const icon = document.createElement('i');
-    elem.following ?
+    icon.addEventListener('click', () => {
+      toggleFollow(elem.id)
+        .then(res => {
+          if (res.status === 201) {
+            icon.classList.remove('icon-heart-empty');
+            icon.classList.add('icon-heart')
+          }
+          if (res.status === 202) {
+            icon.classList.remove('icon-heart');
+            icon.classList.add('icon-heart-empty');
+          }
+        });
+    });
+
+    elem.follower === userId ?
       icon.classList.add('icon-heart') :
       icon.classList.add('icon-heart-empty');
 
@@ -114,4 +129,14 @@ const drawUsersList = (target, data) => {
   });
 
   target.appendChild(fragment);
+};
+
+const searchUsers = keyWord => {
+  const token = localStorage.getItem('token');
+  return axios({
+    method: 'POST',
+    url: 'users/search',
+    headers: { token },
+    data: { keyWord }
+  });
 };

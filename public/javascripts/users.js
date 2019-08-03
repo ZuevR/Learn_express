@@ -4,11 +4,23 @@ window.onload = function () {
 
   const logoutLink = document.getElementById('logout-link');
   const usersListArea = document.getElementById('scroll-content');
+  const searchButton = document.getElementById('search-button');
+  const searchInput = document.getElementById('search');
+  const navMenu = document.querySelectorAll('.nav-menu-item');
+
   logoutLink.addEventListener('click', logout);
+  searchButton.addEventListener('click', () => {
+    let keyWord = searchInput.value;
+    searchUsers(keyWord)
+      .then(res => {
+        drawUsersList(usersListArea, res.data)
+      });
+  });
 
   getFollowersInfo()
-    .then(users => {
-      drawUsersList(usersListArea, users);
+    .then(data => {
+      drawUsersList(usersListArea, data);
     });
 
+  navMenu[1].addEventListener('click', redirectToHomePage);
 };

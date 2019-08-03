@@ -15,7 +15,7 @@ router.get("/sign-in", (req, res, next) => {
 router.post("/sign-in", async (req, res, next) => {
   const formData = req.body;
   try {
-    const rows = await db.query('SELECT * FROM "Users" WHERE email = $1', [formData.email.toLowerCase()]);
+    const rows = await db.query('SELECT * FROM users WHERE email = $1', [formData.email.toLowerCase()]);
     if (rows.rows.length) {
       const user = rows.rows[0];
       const match = await bcrypt.compare(formData.password, user.password);
@@ -48,12 +48,12 @@ router.post("/sign-up", async (req, res, next) => {
   const formData = req.body;
 
   try {
-    const rows = await db.query('SELECT * FROM "Users" WHERE email = $1', [formData.email.toLowerCase()]);
+    const rows = await db.query('SELECT * FROM users WHERE email = $1', [formData.email.toLowerCase()]);
     if (rows.rowCount) {
       res.status(409).send(response.error('User with this email already exist'));
     } else {
       const hashPassword = await bcrypt.hash(formData.password, 3);
-      const queryString = 'INSERT INTO "Users"(name, email, password) VALUES ($1, $2, $3) RETURNING *';
+      const queryString = 'INSERT INTO users(name, email, password) VALUES ($1, $2, $3) RETURNING *';
       const userValues = [formData.name, formData.email.toLowerCase(), hashPassword];
 
       const userData = await db.query(queryString, userValues);
