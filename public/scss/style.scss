@@ -320,6 +320,40 @@ body {
       }
     }
 
+    .new-post {
+      label {
+        display: block;
+        font-weight: 700;
+      }
+
+      textarea,
+      input {
+        display: block;
+        width: 100%;
+        margin: 10px 0;
+        padding: 5px 10px;
+        font-size: 1rem;
+        line-height: 1.2;
+        color: #495057;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: .25rem;
+        transition: background-color .1s linear;
+      }
+
+      input[type="submit"] {
+        width: 25%;
+        margin-top: 35px;
+        &:hover {
+          color: #222222;
+          background-color: #daf3f6;
+        }
+        &:active {
+          background-color: #3db7c6;
+        }
+      }
+    }
   }
 
   .footer {

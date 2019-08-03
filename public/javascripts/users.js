@@ -23,4 +23,5 @@ window.onload = function () {
     });
 
   navMenu[1].addEventListener('click', redirectToHomePage);
+  navMenu[3].addEventListener('click', redirectToAddPostPage);
 };

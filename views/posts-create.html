@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="/stylesheets/style.css"/>
+  <title>Blog | New Post</title>
+</head>
+<body>
+<header class="header">
+  <div class="container">
+    <div class="header-inner">
+      <div class="logo-wrapper">
+        <a href="/">
+          <img class="logo" src="../images/logo-blog.png" alt="logo"/>
+        </a>
+      </div>
+      <nav class="auth-menu">
+        <ul>
+          <a href="/sign-up" id="sign-up-link" class="hidden">
+            <li class="auth-menu-item">Registration</li>
+          </a>
+          <a href="/sign-in" id="sign-in-link" class="hidden">
+            <li class="auth-menu-item">Login</li>
+          </a>
+          <a href="/logout" id="logout-link" class="hidden">
+            <li class="auth-menu-item">Logout</li>
+          </a>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main class="main-content">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <div id="left-section-wrap">
+          <div class="user-info">
+            <span id="user-name"></span>
+          </div>
+          <aside class="nav-menu">
+            <ul>
+              <li class="nav-menu-item">Users</li>
+              <li class="nav-menu-item">Posts</li>
+              <li class="nav-menu-item">Friends Posts</li>
+              <li class="nav-menu-item active">Add New Post</li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+
+      <div class="col-md-6" id="scroll-content">
+        <form class="new-post" action="">
+          <div class="post-group">
+            <label for="title">Title</label>
+            <input id="title" type="text">
+          </div>
+
+          <div class="post-group">
+            <label for="text">Text</label>
+            <textarea id="text" type="text" rows="10"></textarea>
+          </div>
+
+          <div class="post-group">
+            <input id="add-post" type="submit" value="Add">
+          </div>
+
+        </form>
+      </div>
+
+      <div class="col-md-3">
+        <div class="search-bar" id="search-bar">
+          <label for="search">Input name of User</label>
+          <input id="search" type="search">
+          <input id="search-button" type="submit" value="Search">
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="copyrights">
+        Intspirit ©2019
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="/javascripts/libs/axios.min.js"></script>
+<script src="/javascripts/functions.js"></script>
+<script src="/javascripts/posts.js"></script>
+</body>
+</html>

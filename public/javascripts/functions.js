@@ -30,6 +30,7 @@ const checkUser = () => {
   })
     .then(res => {
       userNameSpan.textContent = res.data;
+      console.log(res.data);
       logoutLink.classList.remove('hidden');
       logoutLink.textContent = `Logout (${res.data})`;
     })
@@ -37,6 +38,56 @@ const checkUser = () => {
       userNameSpan.textContent = 'Guest';
       signUpLink.classList.remove('hidden');
       signInLink.classList.remove('hidden');
+    })
+};
+
+const getAllPosts = () => {
+  return axios('/posts')
+};
+
+const drawAllPosts = target => {
+  getAllPosts()
+    .then(res => {
+      const posts = res.data;
+      while (target.firstChild) {
+        target.removeChild(target.firstChild);
+      }
+
+      const fragment = document.createDocumentFragment();
+      posts.forEach(elem => {
+        const postDiv = document.createElement('div');
+        postDiv.classList.add('post');
+
+        const postTitle = document.createElement('h2');
+        postTitle.classList.add('post-title');
+        postTitle.textContent = elem.title;
+
+        const postDescription = document.createElement('p');
+        postDescription.classList.add('post-description');
+        postDescription.textContent = elem.text;
+
+        const postInfo = document.createElement('div');
+        postInfo.classList.add('post-info');
+
+        const authorName = document.createElement('span');
+        authorName.classList.add('author');
+        authorName.textContent = elem.name;
+
+        const dateSpan = document.createElement('span');
+        dateSpan.classList.add('date');
+        dateSpan.textContent = elem.date;
+
+        postInfo.appendChild(authorName);
+        postInfo.appendChild(dateSpan);
+
+        postDiv.appendChild(postTitle);
+        postDiv.appendChild(postDescription);
+        postDiv.appendChild(postInfo);
+
+        fragment.appendChild(postDiv);
+      });
+
+      target.appendChild(fragment);
     })
 };
 
@@ -53,6 +104,8 @@ const getFollowersInfo = () => {
 const redirectToHomePage = () => window.location.replace('http://localhost:3000');
 
 const redirectToUsersPage = () => window.location.replace('http://localhost:3000/users');
+
+const redirectToAddPostPage = () => window.location.replace('http://localhost:3000/posts/create');
 
 const logout = event => {
   event.preventDefault();

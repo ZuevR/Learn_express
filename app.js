@@ -7,6 +7,7 @@ const bodyParser = require("body-parser");
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const authRouter = require("./routes/auth");
+const postRouter = require("./routes/post");
 
 const app = express();
 
@@ -21,10 +22,6 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/", authRouter);
 app.use("/users", usersRouter);
-
-// TODO: It was just for example, has to be deleted.
-app.get("/products", (req, res) =>
-  res.sendFile(__dirname + "/views/products.html")
-);
+app.use("/posts", postRouter);
 
 module.exports = app;
