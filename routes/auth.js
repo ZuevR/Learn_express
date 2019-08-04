@@ -82,3 +82,5 @@ router.get("/logout", (req, res, next) => {
 });
 
 module.exports = router;
+
+//select u.id, u.name, f.following from users u left join followers f on u.id = f.following and f.follower = 6 where u.id != 6 and f.following is not null

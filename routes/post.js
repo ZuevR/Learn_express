@@ -8,7 +8,7 @@ const response = require('../helpers/response');
 const pathPublic = path.join(process.cwd() + "/views");
 
 router.get('/', async (req, res, next) => {
-  const posts = await db.query(`select p.id, p.title, p.text, p.date, u.name from posts p left join users u on p.author_id = u.id order by p.date desc;`);
+  const posts = await db.query(`select p.id, p.title, p.text, to_char(p.date, 'dd Mon, yyyy') as date, u.name from posts p left join users u on p.author_id = u.id order by p.date desc;`);
   res.status(200).send(posts.rows);
 });
 
@@ -32,8 +32,8 @@ router.post('/create', (req, res, next) => {
       const userId = decoded.userId;
       const title = req.body.title;
       const text = req.body.text;
-      const queryString = `insert into posts (title, text, author_id, date) values ($1, $2, $3, $4);`;
-      const values = [title, text, userId, Date.now()];
+      const queryString = `insert into posts (title, text, author_id) values ($1, $2, $3);`;
+      const values = [title, text, userId];
       await db.query(queryString, values);
       res.status(201).send({message: 'ok'});
     } else {
