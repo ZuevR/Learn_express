@@ -7,9 +7,7 @@ const router  = express.Router();
 
 const pathPublic = path.join(process.cwd() + "/views");
 
-
-/* GET users listing. */
-router.get("/", function(req, res, next) {
+router.get("/", (req, res, next) => {
   const token = req.headers.token || req.cookies.token;
 
   jwt.verify(token, 'inspirit', (err, decoded) => {
@@ -27,7 +25,9 @@ router.get("/followers", async (req, res, next) => {
   const decoded = jwt.decode(req.headers.token);
   const userId = decoded.userId;
   try {
-    const queryString = `select u.id, u.name, f.follower from users u left join followers f on u.id = f.following and f.follower = $1 where u.id <> $1 order by u.name`;
+    const queryString = `select u.id, u.name, f.follower from
+            users u left join followers f on u.id = f.following
+            and f.follower = $1 where u.id <> $1 order by u.name`;
     const userValues = [userId];
     const users = await db.query(queryString, userValues);
     console.log(users.rows);

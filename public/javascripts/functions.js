@@ -30,7 +30,6 @@ const checkUser = () => {
   })
     .then(res => {
       userNameSpan.textContent = res.data;
-      console.log(res.data);
       logoutLink.classList.remove('hidden');
       logoutLink.textContent = `Logout (${res.data})`;
     })
@@ -40,6 +39,15 @@ const checkUser = () => {
       signInLink.classList.remove('hidden');
     })
 };
+
+const showError = error => {
+  const errorText = error.response.data.message;
+  const errorsArea = document.getElementById('errors');
+  errorsArea.textContent = errorText;
+  errorsArea.classList.remove('hidden');
+};
+
+// =============================================================
 
 const getAllPosts = () => {
   return axios('/posts')
@@ -146,6 +154,8 @@ const getFollowersInfo = () => {
     .catch();
 };
 
+// =============================================================
+
 const redirectToHomePage = () => window.location.replace('http://localhost:3000');
 
 const redirectToUsersPage = () => window.location.replace('http://localhost:3000/users');
@@ -154,8 +164,48 @@ const redirectToAddPostPage = () => window.location.replace('http://localhost:30
 
 const redirectToFriendsPostsPage = () => window.location.href = 'http://localhost:3000/posts/friends';
 
+// =============================================================
+
+const getUsersPage = () => {
+  const token = localStorage.getItem('token');
+
+  axios('/users', {
+    headers: { token }
+  })
+    .then(res => {
+      redirectToUsersPage();
+    })
+    .catch(err => {
+      showError(err);
+    });
+};
+
+const getPostAddPage = () => {
+  const token = localStorage.getItem('token');
+
+  axios('/posts/create', {
+    headers: { token }
+  })
+    .then(res => {
+      redirectToAddPostPage();
+    })
+    .catch(err => {
+      showError(err)
+    });
+};
+
 const getFriendsPostsPage = () => {
-  redirectToFriendsPostsPage();
+  const token = localStorage.getItem('token');
+
+  axios('/posts/friends', {
+    headers: { token }
+  })
+    .then(res => {
+      redirectToFriendsPostsPage();
+    })
+    .catch(err => {
+      showError(err);
+    });
 };
 
 const logout = event => {

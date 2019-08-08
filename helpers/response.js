@@ -6,7 +6,7 @@ module.exports = {
   }),
 
   error: message => ({
-    errorMessage: message
+    message
   })
 
 };

@@ -45,6 +45,7 @@ router.post('/create', (req, res, next) => {
 
 router.get('/friends', (req, res, next) => {
   const token = req.headers.token || req.cookies.token;
+
   jwt.verify(token, 'inspirit', (err, decoded) => {
     if (decoded) {
       res.sendFile(pathPublic + "/friends-posts.html");
