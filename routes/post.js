@@ -43,5 +43,33 @@ router.post('/create', (req, res, next) => {
 
 });
 
+router.get('/friends', (req, res, next) => {
+  const token = req.headers.token || req.cookies.token;
+  jwt.verify(token, 'inspirit', (err, decoded) => {
+    if (decoded) {
+      res.sendFile(pathPublic + "/friends-posts.html");
+    } else {
+      res.status(401).send(response.error('Please login'));
+    }
+  });
+});
+
+router.get('/friends-posts', (req, res, next) => {
+  const token = req.headers.token;
+  jwt.verify(token, 'inspirit', async (err, decoded) => {
+    if (decoded) {
+      const userId = decoded.userId;
+      const queryString = `select p.id, p.title, p.text, to_char(p.date, 'dd Mon, yyyy') as date from posts p where p.author_id in 
+                          (select u.id from users u left join followers f on u.id = f.following and f.follower = $1 where u.id != $1 and f.following is not null)`;
+      const values = [userId];
+      const posts = await db.query(queryString, values);
+      console.log(posts.rows);
+      res.send(posts.rows);
+    } else {
+      res.status(401).send(response.error('Please login'));
+    }
+  });
+});
+
 
 module.exports = router;

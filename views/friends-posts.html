@@ -1,0 +1,83 @@
+<html>
+<head>
+  <title>Blog | Friends Posts</title>
+  <link rel="stylesheet" href="/stylesheets/style.css"/>
+</head>
+
+<body>
+<header class="header">
+  <div class="container">
+    <div class="header-inner">
+      <div class="logo-wrapper">
+        <a href="/">
+          <img class="logo" src="../images/logo-blog.png" alt="logo"/>
+        </a>
+      </div>
+      <nav class="auth-menu">
+        <ul>
+          <a href="/sign-up" id="sign-up-link" class="hidden">
+            <li class="auth-menu-item">Registration</li>
+          </a>
+          <a href="/sign-in" id="sign-in-link" class="hidden">
+            <li class="auth-menu-item">Login</li>
+          </a>
+          <a href="/logout" id="logout-link" class="hidden">
+            <li class="auth-menu-item">Logout</li>
+          </a>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main class="main-content">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <div id="left-section-wrap">
+          <div class="user-info">
+            <span id="user-name"></span>
+          </div>
+          <aside class="nav-menu">
+            <ul>
+              <li class="nav-menu-item">Users</li>
+              <li class="nav-menu-item">Posts</li>
+              <li class="nav-menu-item active">Friends Posts</li>
+              <li class="nav-menu-item">Add New Post</li>
+            </ul>
+          </aside>
+          <div class="errors-block hidden" id="errors"></div>
+        </div>
+      </div>
+
+      <div class="col-md-9" id="scroll-content">
+        <div class="post">
+          <h2 class="post-title">Title</h2>
+          <p class="post-description">Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore magna aliqua.</p>
+          <div class="post-info">
+            <span class="author">Author Name</span>
+            <span class="date">27-07-2018</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="copyrights">
+        Intspirit ©2019
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="/javascripts/libs/axios.min.js"></script>
+<script src="/javascripts/functions.js"></script>
+<script src="/javascripts/friends-posts.js"></script>
+</body>
+</html>

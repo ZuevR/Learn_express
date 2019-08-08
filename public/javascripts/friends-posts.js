@@ -2,13 +2,12 @@ window.onload = function () {
   checkUser();
   fixMenu();
 
-  const logoutLink = document.getElementById('logout-link');
-  logoutLink.addEventListener('click', logout);
-
-  const postsArea = document.getElementById('scroll-content');
-  drawAllPosts(postsArea);
-
   const navMenu = document.querySelectorAll('.nav-menu-item');
+  const logoutLink = document.getElementById('logout-link');
+  const postsArea = document.getElementById('scroll-content');
+
+
+  logoutLink.addEventListener('click', logout);
 
   const getUsersPage = () => {
     const token = localStorage.getItem('token');
@@ -27,24 +26,18 @@ window.onload = function () {
       });
   };
 
-  const getPostAddPage = () => {
+  const getFriendsPosts = () => {
     const token = localStorage.getItem('token');
-
-    axios('/posts/create', {
+    axios({
+      method: 'GET',
+      url: '/posts/friends-posts',
       headers: {token}
+    }).then(res => {
+      drawPosts(postsArea, res.data);
     })
-      .then(res => {
-        redirectToAddPostPage();
-      })
-      .catch(err => {
-        const errorText = err.response.data.errorMessage;
-        const errorsArea = document.getElementById('errors');
-        errorsArea.textContent = errorText;
-        errorsArea.classList.remove('hidden');
-      });
   };
+  getFriendsPosts();
 
   navMenu[0].addEventListener('click', getUsersPage);
-  navMenu[2].addEventListener('click', getFriendsPostsPage);
-  navMenu[3].addEventListener('click', getPostAddPage);
+  navMenu[1].addEventListener('click', redirectToHomePage);
 };
