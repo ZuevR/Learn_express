@@ -5,6 +5,10 @@ const postController = require('../controllers/post-controller');
 
 router.get('/', postController.getPosts);
 
+router.get('/my', helper.verifyToken, postController.getMyPostsPage);
+
+router.get('/my-posts', helper.verifyToken, postController.getMyPosts);
+
 router.get('/create', helper.verifyToken, postController.getPostCreatePage);
 
 router.post('/create', helper.verifyToken, postController.createPost);

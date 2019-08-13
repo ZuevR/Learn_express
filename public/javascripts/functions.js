@@ -49,56 +49,6 @@ const showError = error => {
 
 // =============================================================
 
-const getAllPosts = () => {
-  return axios('/posts')
-};
-
-const drawAllPosts = target => {
-  getAllPosts()
-    .then(res => {
-      const posts = res.data;
-      while (target.firstChild) {
-        target.removeChild(target.firstChild);
-      }
-
-      const fragment = document.createDocumentFragment();
-      posts.forEach(elem => {
-        const postDiv = document.createElement('div');
-        postDiv.classList.add('post');
-
-        const postTitle = document.createElement('h2');
-        postTitle.classList.add('post-title');
-        postTitle.textContent = elem.title;
-
-        const postDescription = document.createElement('p');
-        postDescription.classList.add('post-description');
-        postDescription.textContent = elem.text;
-
-        const postInfo = document.createElement('div');
-        postInfo.classList.add('post-info');
-
-        const authorName = document.createElement('span');
-        authorName.classList.add('author');
-        authorName.textContent = elem.name;
-
-        const dateSpan = document.createElement('span');
-        dateSpan.classList.add('date');
-        dateSpan.textContent = elem.date;
-
-        postInfo.appendChild(authorName);
-        postInfo.appendChild(dateSpan);
-
-        postDiv.appendChild(postTitle);
-        postDiv.appendChild(postDescription);
-        postDiv.appendChild(postInfo);
-
-        fragment.appendChild(postDiv);
-      });
-
-      target.appendChild(fragment);
-    })
-};
-
 const drawPosts = (target, data) => {
 
   const posts = data;
@@ -156,13 +106,15 @@ const getFollowersInfo = () => {
 
 // =============================================================
 
-const redirectToHomePage = () => window.location.replace('http://localhost:3000');
+const redirectToHomePage = () => window.location.href = 'http://localhost:3000';
 
-const redirectToUsersPage = () => window.location.replace('http://localhost:3000/users');
+const redirectToUsersPage = () => window.location.href = 'http://localhost:3000/users';
 
-const redirectToAddPostPage = () => window.location.replace('http://localhost:3000/posts/create');
+const redirectToAddPostPage = () => window.location.href = 'http://localhost:3000/posts/create';
 
 const redirectToFriendsPostsPage = () => window.location.href = 'http://localhost:3000/posts/friends';
+
+const redirectToMyPostsPage = () => window.location.href = 'http://localhost:3000/posts/my';
 
 // =============================================================
 
@@ -208,6 +160,19 @@ const getFriendsPostsPage = () => {
     });
 };
 
+const getMyPostsPage = () => {
+  const token = localStorage.getItem('token');
+  axios('/posts/my', {
+    headers: { token }
+  })
+    .then(res => {
+      redirectToMyPostsPage();
+    })
+    .catch(err => {
+      showError(err);
+    });
+};
+
 const logout = event => {
   event.preventDefault();
   localStorage.removeItem('token');
@@ -216,7 +181,6 @@ const logout = event => {
 };
 
 const setCookie = (name, value, expires) => {
-
   const d = new Date();
   d.setTime(d.getTime() + expires * 1000 * 60 * 60);
   expires = d.toUTCString();

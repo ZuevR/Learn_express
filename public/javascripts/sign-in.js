@@ -4,9 +4,6 @@ window.onload = () => {
 
   const showError = message => errorField.textContent = message;
 
-  /**
-   *  Handling Sign Up action
-   */
   submitButton.addEventListener('click', function (event) {
     event.preventDefault();
 
@@ -18,14 +15,13 @@ window.onload = () => {
 
     axios.post('/sign-in', formData)
       .then(res => {
-        console.log(res);
         const token = res.data.payload.token;
         localStorage.setItem('token', token);
         setCookie('token', token, 24);
         redirectToHomePage();
       })
       .catch(err => {
-        const errorText = err.response.data.errorMessage;
+        const errorText = err.response.data.message;
         showError(errorText);
       })
   })

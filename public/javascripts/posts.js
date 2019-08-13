@@ -27,23 +27,9 @@ window.onload = function () {
   });
 
   logoutLink.addEventListener('click', logout);
-  const getUsersPage = () => {
-    const token = localStorage.getItem('token');
 
-    axios('/users', {
-      headers: {token}
-    })
-      .then(res => {
-        redirectToUsersPage();
-      })
-      .catch(err => {
-        const errorText = err.response.data.errorMessage;
-        const errorsArea = document.getElementById('errors');
-        errorsArea.textContent = errorText;
-        errorsArea.classList.remove('hidden');
-      });
-  };
   navMenu[0].addEventListener('click', getUsersPage);
   navMenu[1].addEventListener('click', redirectToHomePage);
-  navMenu[2].addEventListener('click', getFriendsPostsPage);
+  navMenu[2].addEventListener('click', getMyPostsPage);
+  navMenu[3].addEventListener('click', getFriendsPostsPage);
 };

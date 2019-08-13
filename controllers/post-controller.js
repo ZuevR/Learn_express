@@ -42,14 +42,30 @@ const getFriendsPostsPage = (req, res) => {
 const getFriendsPosts = async (req, res) => {
   try {
     const userId = req._userId;
-    const queryString = `select p.id, p.title, p.text, to_char(p.date, 'dd Mon, yyyy') as date
-                       from posts p
-                       where p.author_id in
-                             (select u.id
-                              from users u
-                                       left join followers f on u.id = f.following and f.follower = $1
-                              where u.id != $1
-                                and f.following is not null)`;
+    const queryString = `select p.id, p.title, p.text, to_char(p.date, 'dd Mon, yyyy') as date, u.name
+                         from posts p
+                                  right join users u on p.author_id = u.id
+                         where u.id in (select following from followers where follower = $1)
+                           and p.author_id is not null`;
+    const values = [userId];
+    const posts = await db.query(queryString, values);
+    console.log(posts.rows);
+    res.send(posts.rows);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getMyPostsPage = (req, res) => {
+  res.sendFile(pathPublic + '/my-posts.html');
+};
+
+const getMyPosts = async (req, res) => {
+  try {
+    const userId = req._userId;
+    const queryString = `select id, title, text, author_id, to_char(date, 'dd Mon, yyyy') as date
+                         from posts
+                         where author_id = $1`;
     const values = [userId];
     const posts = await db.query(queryString, values);
     res.send(posts.rows);
@@ -63,5 +79,7 @@ module.exports = {
   getPostCreatePage,
   createPost,
   getFriendsPostsPage,
-  getFriendsPosts
+  getFriendsPosts,
+  getMyPostsPage,
+  getMyPosts
 };

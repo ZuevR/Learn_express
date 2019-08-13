@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken');
 
-const error = message => message;
+const error = message => ({
+  message
+});
 
 const success = data => ({
   message: 'OK',
@@ -14,7 +16,7 @@ const verifyToken = (req, res, next) => {
     if (decoded) {
       req._userId = decoded.userId;
       req._userName = decoded.userName;
-      next()
+      next();
     } else {
       res.status(401).send(error('Please login'));
     }

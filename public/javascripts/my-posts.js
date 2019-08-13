@@ -8,20 +8,20 @@ window.onload = function () {
 
   logoutLink.addEventListener('click', logout);
 
-  const getFriendsPosts = () => {
+  const getMyPosts = () => {
     const token = localStorage.getItem('token');
     axios({
       method: 'GET',
-      url: '/posts/friends-posts',
+      url: '/posts/my-posts',
       headers: {token}
     }).then(res => {
       drawPosts(postsArea, res.data);
-    })
+    });
   };
-  getFriendsPosts();
+  getMyPosts();
 
   navMenu[0].addEventListener('click', getUsersPage);
   navMenu[1].addEventListener('click', redirectToHomePage);
-  navMenu[2].addEventListener('click', getMyPostsPage);
+  navMenu[3].addEventListener('click', getFriendsPostsPage);
   navMenu[4].addEventListener('click', getPostAddPage);
 };

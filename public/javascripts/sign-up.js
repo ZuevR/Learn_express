@@ -1,16 +1,13 @@
 window.onload = () => {
   const submitButton = document.getElementById('sign-up');
-  const errorField = document.getElementById('error');
+  const field = document.getElementById('message-field');
 
-  const showError = message => errorField.textContent = message;
+  const showError = message => field.textContent = message;
   const showSuccess = () => {
-    errorField.textContent = 'You have been successfully registered. Redirect to Home after 3 second';
-    errorField.classList.add('success');
+    field.textContent = 'You have been successfully registered. Redirect to Home after 3 second';
+    field.classList.add('success');
   };
 
-  /**
-   *  Handling Sign Up action
-   */
   submitButton.addEventListener('click', function (event) {
     event.preventDefault();
 
@@ -33,7 +30,7 @@ window.onload = () => {
         setTimeout(redirectToHomePage, 3000);
       })
       .catch(err => {
-        const errorText = err.response.data.errorMessage;
+        const errorText = err.response.data.message;
         showError(errorText);
       })
   })
