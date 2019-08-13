@@ -23,5 +23,6 @@ window.onload = function () {
     });
 
   navMenu[1].addEventListener('click', redirectToHomePage);
+  navMenu[2].addEventListener('click', getFriendsPostsPage);
   navMenu[3].addEventListener('click', redirectToAddPostPage);
 };

@@ -29,9 +29,9 @@ const checkUser = () => {
     headers: {token}
   })
     .then(res => {
-      userNameSpan.textContent = res.data;
+      userNameSpan.textContent = res.data.userName;
       logoutLink.classList.remove('hidden');
-      logoutLink.textContent = `Logout (${res.data})`;
+      logoutLink.textContent = `Logout (${res.data.userName})`;
     })
     .catch(error => {
       userNameSpan.textContent = 'Guest';

@@ -45,4 +45,5 @@ window.onload = function () {
   };
   navMenu[0].addEventListener('click', getUsersPage);
   navMenu[1].addEventListener('click', redirectToHomePage);
+  navMenu[2].addEventListener('click', getFriendsPostsPage);
 };

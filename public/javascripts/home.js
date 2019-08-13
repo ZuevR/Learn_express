@@ -11,7 +11,6 @@ window.onload = function () {
   const navMenu = document.querySelectorAll('.nav-menu-item');
 
 
-
   navMenu[0].addEventListener('click', getUsersPage);
   navMenu[2].addEventListener('click', getFriendsPostsPage);
   navMenu[3].addEventListener('click', getPostAddPage);
