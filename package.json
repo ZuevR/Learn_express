@@ -3,6 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "migrate": "node ./migrations/index.js",
+    "fake": "node ./migrations/insert-data.js",
     "start": "nodemon ./bin/www",
     "scss": "node-sass public/scss/style.scss public/stylesheets/style.css --watch --output-style compressed --importer node_modules/node-sass-import"
   },
@@ -16,7 +18,6 @@
     "morgan": "~1.9.1",
     "nodemon": "^1.19.1",
     "pg": "^7.11.0",
-    "pg-hstore": "^2.3.3",
     "sequelize": "^5.10.0"
   },
   "devDependencies": {
