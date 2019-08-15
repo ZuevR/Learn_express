@@ -1,13 +1,10 @@
 const db = require('../db');
-const path = require('path');
 const helper = require('../helpers');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const pathPublic = path.join(process.cwd() + '/views');
-
-const getSignInPage = (req, res) => {
-  res.sendFile(pathPublic + '/sign-in.html');
+const getIdentity = (req, res) => {
+  res.status(200).send({userName: req._userName});
 };
 
 const signIn = async (req, res) => {
@@ -39,10 +36,6 @@ const signIn = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-};
-
-const getSignUpPage = (req, res) => {
-  res.sendFile(pathPublic + '/sign-up.html');
 };
 
 const signUp = async (req, res) => {
@@ -77,14 +70,6 @@ const signUp = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-};
-
-const logout = (req, res) => {
-  res.sendFile(pathPublic + '/index.html');
-};
-
-const getUsersPage = (req, res) => {
-  res.sendFile(pathPublic + '/users.html');
 };
 
 const getAllUsers = async (req, res) => {
@@ -152,12 +137,9 @@ const search = async (req, res) => {
 };
 
 module.exports = {
-  getSignInPage,
+  getIdentity,
   signIn,
-  getSignUpPage,
   signUp,
-  logout,
-  getUsersPage,
   getAllUsers,
   toggleFollow,
   search

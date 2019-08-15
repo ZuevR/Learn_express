@@ -19,7 +19,7 @@
 
 @font-face {
   font-family: 'Fontello';
-  src:  url("../fonts/fontello.woff") format('woff');
+  src:  url("../fonts/fontello.woff2") format('woff2');
   font-display: swap;
   font-style: normal;
   font-weight: normal;
@@ -377,3 +377,48 @@ body {
     transform: scale(1.5);
   }
 }
+.sort {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #3db7c6;
+
+}
+
+.icons {
+  font-family: 'Fontello';
+  color: #3db7c636;
+  margin-left: 15px;
+
+  .icon-up-big {
+    cursor: pointer;
+
+    &:before {
+      content: '\e802';
+    }
+
+    &.active {
+      color: #3db7c6;
+    }
+  }
+
+  .icon-down-big {
+    cursor: pointer;
+
+    &:before {
+      content: '\e803';
+    }
+
+    &.active {
+      color: #3db7c6;
+    }
+  }
+
+}
+
+

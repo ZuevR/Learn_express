@@ -1,20 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const helper = require('../helpers');
-const postController = require('../controllers/post-controller');
+const siteController = require('../controllers/site-controller');
 
-router.get('/', postController.getPosts);
+router.get('/my', helper.verifyToken, siteController.getPage('my-posts.html'));
 
-router.get('/my', helper.verifyToken, postController.getMyPostsPage);
+router.get('/create', helper.verifyToken, siteController.getPage('create-posts.html'));
 
-router.get('/my-posts', helper.verifyToken, postController.getMyPosts);
-
-router.get('/create', helper.verifyToken, postController.getPostCreatePage);
-
-router.post('/create', helper.verifyToken, postController.createPost);
-
-router.get('/friends', helper.verifyToken, postController.getFriendsPostsPage);
-
-router.get('/friends-posts', helper.verifyToken, postController.getFriendsPosts);
+router.get('/friends', helper.verifyToken, siteController.getPage('friends-posts.html'));
 
 module.exports = router;

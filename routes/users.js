@@ -1,14 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const helper = require('../helpers');
-const userController = require('../controllers/user-controller');
+const siteController = require('../controllers/site-controller');
 
-router.get('/', helper.verifyToken, userController.getUsersPage);
-
-router.get('/followers', helper.verifyToken, userController.getAllUsers);
-
-router.post('/follow', helper.verifyToken, userController.toggleFollow);
-
-router.post('/search', helper.verifyToken, userController.search);
+router.get('/', helper.verifyToken, siteController.getPage('users.html'));
 
 module.exports = router;

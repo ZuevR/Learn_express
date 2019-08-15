@@ -18,7 +18,7 @@ window.onload = () => {
       password: form.elements['password'].value
     };
 
-    axios.post('/sign-up', formData)
+    axios.post('/api/v1/auth/sign-up', formData)
       .then(res => {
         showSuccess();
         return res;

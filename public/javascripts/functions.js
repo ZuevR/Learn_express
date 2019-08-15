@@ -25,7 +25,7 @@ const checkUser = () => {
     logoutLink = document.getElementById('logout-link');
 
   const token = localStorage.getItem('token');
-  axios('/check-user', {
+  axios('/api/v1/auth/check-user', {
     headers: {token}
   })
     .then(res => {
@@ -47,10 +47,8 @@ const showError = error => {
   errorsArea.classList.remove('hidden');
 };
 
-// =============================================================
-
 const drawPosts = (target, data) => {
-
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const posts = data;
   while (target.firstChild) {
     target.removeChild(target.firstChild);
@@ -78,7 +76,8 @@ const drawPosts = (target, data) => {
 
     const dateSpan = document.createElement('span');
     dateSpan.classList.add('date');
-    dateSpan.textContent = elem.date;
+    const date = new Date(elem.date * 1000);
+    dateSpan.textContent = `${date.getDate()} ${months[date.getMonth()]}, ${date.getFullYear()}`;
 
     postInfo.appendChild(authorName);
     postInfo.appendChild(dateSpan);
@@ -95,7 +94,7 @@ const drawPosts = (target, data) => {
 };
 
 const getFollowersInfo = () => {
-  return axios('/users/followers', {
+  return axios('/api/v1/users', {
     headers: {
       'token': localStorage.getItem('token')
     }
@@ -195,7 +194,7 @@ const toggleFollow = id => {
   const token = localStorage.getItem('token');
   return axios({
     method: 'POST',
-    url: '/users/follow',
+    url: '/api/v1/users/follow',
     headers: {token},
     data: {id}
   })
@@ -253,8 +252,16 @@ const searchUsers = keyWord => {
   const token = localStorage.getItem('token');
   return axios({
     method: 'POST',
-    url: 'users/search',
+    url: '/api/v1/users/search',
     headers: { token },
     data: { keyWord }
   });
+};
+
+const getDescSort = data => {
+  return data.sort((a, b) => a.date - b.date);
+};
+
+const getAscSort = data => {
+  return data.sort((a, b) => b.date - a.date);
 };

@@ -1,22 +1,16 @@
 const db = require('../db');
-const path = require('path');
-
-const pathPublic = path.join(process.cwd() + '/views');
 
 const getPosts = async (req, res) => {
   try {
-    const posts = await db.query(`select p.id, p.title, p.text, to_char(p.date, 'dd Mon, yyyy') as date, u.name
-                                from posts p
-                                         left join users u on p.author_id = u.id
-                                order by p.date desc;`);
+    const posts = await db.query(`select p.id, p.title, p.text, date_part('epoch', p.date)::int as date, u.name
+                                  from posts p
+                                           left join users u on p.author_id = u.id
+                                  order by p.date desc;`);
+    console.log(posts.rows);
     res.status(200).send(posts.rows);
   } catch (error) {
     console.log(error);
   }
-};
-
-const getPostCreatePage = (req, res) => {
-  res.sendFile(pathPublic + '/posts-create.html');
 };
 
 const createPost = async (req, res) => {
@@ -35,37 +29,30 @@ const createPost = async (req, res) => {
 
 };
 
-const getFriendsPostsPage = (req, res) => {
-  res.sendFile(pathPublic + '/friends-posts.html');
-};
-
 const getFriendsPosts = async (req, res) => {
   try {
     const userId = req._userId;
-    const queryString = `select p.id, p.title, p.text, to_char(p.date, 'dd Mon, yyyy') as date, u.name
+    const queryString = `select p.id, p.title, p.text, date_part('epoch', p.date)::int as date, u.name
                          from posts p
                                   right join users u on p.author_id = u.id
                          where u.id in (select following from followers where follower = $1)
-                           and p.author_id is not null`;
+                           and p.author_id is not null
+                         order by date desc`;
     const values = [userId];
     const posts = await db.query(queryString, values);
-    console.log(posts.rows);
     res.send(posts.rows);
   } catch (error) {
     console.log(error);
   }
 };
 
-const getMyPostsPage = (req, res) => {
-  res.sendFile(pathPublic + '/my-posts.html');
-};
-
 const getMyPosts = async (req, res) => {
   try {
     const userId = req._userId;
-    const queryString = `select id, title, text, author_id, to_char(date, 'dd Mon, yyyy') as date
+    const queryString = `select id, title, text, author_id, date_part('epoch', date)::int as date
                          from posts
-                         where author_id = $1`;
+                         where author_id = $1
+                         order by date desc`;
     const values = [userId];
     const posts = await db.query(queryString, values);
     res.send(posts.rows);
@@ -76,10 +63,7 @@ const getMyPosts = async (req, res) => {
 
 module.exports = {
   getPosts,
-  getPostCreatePage,
   createPost,
-  getFriendsPostsPage,
   getFriendsPosts,
-  getMyPostsPage,
   getMyPosts
 };

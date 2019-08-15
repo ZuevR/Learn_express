@@ -13,7 +13,7 @@ window.onload = () => {
       password: form.elements['password'].value
     };
 
-    axios.post('/sign-in', formData)
+    axios.post('/api/v1/auth/sign-in', formData)
       .then(res => {
         const token = res.data.payload.token;
         localStorage.setItem('token', token);

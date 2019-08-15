@@ -1,4 +1,5 @@
 window.onload = function () {
+  let posts = null;
   checkUser();
   fixMenu();
 
@@ -7,12 +8,27 @@ window.onload = function () {
 
   const postsArea = document.getElementById('scroll-content');
   const getAllPosts = () => {
-    axios('/posts')
+    axios('/api/v1/posts')
       .then(res => {
+        posts = res.data;
         drawPosts(postsArea, res.data);
       })
   };
   getAllPosts();
+
+  const sortBlock = document.getElementById('icons');
+  sortBlock.addEventListener('click',function(event) {
+    if (event.target.id === 'up') {
+      drawPosts(postsArea, getDescSort(posts));
+      this.children[0].classList.add('active');
+      this.children[1].classList.remove('active');
+    }
+    if (event.target.id === 'down') {
+      drawPosts(postsArea, getAscSort(posts));
+      this.children[0].classList.remove('active');
+      this.children[1].classList.add('active');
+    }
+  });
 
   const navMenu = document.querySelectorAll('.nav-menu-item');
 

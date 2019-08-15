@@ -16,7 +16,7 @@ window.onload = function () {
     axios({
       method: 'POST',
       headers: { token },
-      url: '/posts/create',
+      url: '/api/v1/posts/create',
       data: {
         title,
         text

@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const helper = require('../helpers');
 const siteController = require('../controllers/site-controller');
 
-router.get('/', siteController.getHomePage);
+router.get('/', siteController.getPage('index.html'));
 
-router.get('/check-user', helper.verifyToken, siteController.getIdentity);
+router.get('/sign-in', siteController.getPage('sign-in.html'));
+
+router.get('/sign-up', siteController.getPage('sign-up.html'));
 
 module.exports = router;
