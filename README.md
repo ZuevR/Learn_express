@@ -20,7 +20,7 @@ git clone https://github.com/ZuevR/Learn_express.git .
 ~~~
 - Then You should install required dependencies
 ~~~
-npm intall
+npm install
 ~~~
 
 If you do not have [npm](https://www.npmjs.com/), you may install Node.js by following the instructions
