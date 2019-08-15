@@ -54,3 +54,11 @@ If you want to put some test data into your database run the following command
 ~~~
 npm fake
 ~~~
+
+Launching
+-------------
+Run the command
+~~~
+npm start
+~~~
+Now you can find a working site at http://localhost:3000/
